@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     // How high the player can jump
     public float jumpHeight = 2f;
 
+    private Renderer renderObject;
+    public Material deathMat;
     private void Start()
     {
         // If the variable "controller" is empty...
@@ -48,8 +50,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // These lines let the script rotate the player based on the mouse moving
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
+
+        if (!Input.GetMouseButton(0))
+        {
+            yaw += speedH * Input.GetAxis("Mouse X");
+            pitch -= speedV * Input.GetAxis("Mouse Y");
+        }
 
         // Get the Left/Right and Forward/Back values of the input being used (WASD, Joystick etc.)
         float x = Input.GetAxis("Horizontal");
@@ -80,5 +86,26 @@ public class PlayerMovement : MonoBehaviour
  
         // Finally, it applies that vector it just made to the character
         controller.Move(move * speed * Time.deltaTime + velocity * Time.deltaTime);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Hazard")
+        {
+            Debug.Log("You have died.");
+            Destroy(gameObject.GetComponent<PlayerMovement>());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Hazard")
+        {
+            Debug.Log("You have been overcooked.");
+            Destroy(gameObject.GetComponent<PlayerMovement>());
+            Destroy(gameObject.GetComponent<CharacterController>());
+            renderObject = GetComponent<Renderer>();
+            renderObject.material = deathMat;
+        }
     }
 }
