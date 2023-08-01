@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6cbc7e0dac31b27419ba7a62c5e36e59, type: 2}
     - target: {fileID: 919132149155446097, guid: b3f49d5b6ecf99f4a944d7c509b30832, type: 3}
       propertyPath: m_Name
-      value: chicken Variant
+      value: Chicken
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b3f49d5b6ecf99f4a944d7c509b30832, type: 3}
       propertyPath: m_TagString
@@ -86,6 +86,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b3f49d5b6ecf99f4a944d7c509b30832, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1017441793557673046}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b3f49d5b6ecf99f4a944d7c509b30832, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1329563022803057398}
   m_SourcePrefab: {fileID: 100100000, guid: b3f49d5b6ecf99f4a944d7c509b30832, type: 3}
 --- !u!1 &6417347596101824574 stripped
 GameObject:
@@ -230,3 +233,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1103363, y: 0.4361142, z: 0.4735762}
   m_Center: {x: -0.015212774, y: -1.318538, z: -0.9203853}
+--- !u!114 &-1329563022803057398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417347596101824574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7079f2f92fd3b0641806feac0cfbbafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  deathMat: {fileID: 2100000, guid: ebd30ec9e6009c4439b36a41d446e277, type: 2}

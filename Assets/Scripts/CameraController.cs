@@ -14,8 +14,8 @@ public class CameraController : MonoBehaviour
     private Vector3 lastMousePosition;
     public float zoomSpeed = 15f;
     public float minZoomDistance = 15f;
-    public float maxZoomDistance = 50f;
-    private float currentZoomDistance = 50f;
+    public float maxZoomDistance = 45f;
+    private float currentZoomDistance = 45f;
 
     private void Update()
     {

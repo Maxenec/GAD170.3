@@ -96,16 +96,4 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject.GetComponent<PlayerMovement>());
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Hazard")
-        {
-            Debug.Log("You have been overcooked.");
-            Destroy(gameObject.GetComponent<PlayerMovement>());
-            Destroy(gameObject.GetComponent<CharacterController>());
-            renderObject = GetComponent<Renderer>();
-            renderObject.material = deathMat;
-        }
-    }
 }
