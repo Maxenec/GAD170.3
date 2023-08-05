@@ -7,6 +7,7 @@ public class PlayerStat : MonoBehaviour
     public int playerHealth = 100;
     private Renderer renderObject;
     public Material deathMat;
+    public Camera chickenCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -21,25 +22,36 @@ public class PlayerStat : MonoBehaviour
         {
             playerHealth = 100;
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Hazard")
+        else if (playerHealth < 1)
         {
-            Debug.Log("You have been overcooked.");
+            playerHealth = 0;
             Destroy(gameObject.GetComponent<PlayerMovement>());
             Destroy(gameObject.GetComponent<CharacterController>());
             renderObject = GetComponent<Renderer>();
             renderObject.material = deathMat;
+            chickenCamera.transform.SetParent(null);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Hazard")
+        {
+            playerHealth -= 1;
+
         }
         if (other.gameObject.tag == "DeathZone")
         {
             Debug.Log("You are losing HP.");
-                for (int i = playerHealth; i > 0; i++)
+            for (int i = playerHealth; i > 0; i++)
             {
 
             }
         }
+    }
+
+    public int PlayerHealth()
+    {
+        return playerHealth;
     }
 }

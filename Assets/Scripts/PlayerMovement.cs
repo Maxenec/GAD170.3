@@ -87,13 +87,4 @@ public class PlayerMovement : MonoBehaviour
         // Finally, it applies that vector it just made to the character
         controller.Move(move * speed * Time.deltaTime + velocity * Time.deltaTime);
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Hazard")
-        {
-            Debug.Log("You have died.");
-            Destroy(gameObject.GetComponent<PlayerMovement>());
-        }
-    }
 }
