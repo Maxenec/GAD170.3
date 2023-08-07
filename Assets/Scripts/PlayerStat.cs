@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int playerHealth = 100;
+    private int playerHealth = 100;
     private Renderer renderObject;
     public Material deathMat;
     public Camera chickenCamera;

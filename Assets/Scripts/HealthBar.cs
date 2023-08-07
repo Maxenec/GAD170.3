@@ -18,6 +18,6 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health.value = player.GetComponent<PlayerStat>().playerHealth;
+        health.value = player.GetComponent<PlayerStat>().PlayerHealth();
     }
 }
