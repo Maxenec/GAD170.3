@@ -8,6 +8,9 @@ public class PlayerStat : MonoBehaviour
     private Renderer renderObject;
     public Material deathMat;
     public Camera chickenCamera;
+    public GameObject gameController;
+    private int deathType = 0;
+    private bool onObject = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,34 +27,66 @@ public class PlayerStat : MonoBehaviour
         }
         else if (playerHealth < 1)
         {
-            playerHealth = 0;
-            Destroy(gameObject.GetComponent<PlayerMovement>());
-            Destroy(gameObject.GetComponent<CharacterController>());
-            renderObject = GetComponent<Renderer>();
-            renderObject.material = deathMat;
-            chickenCamera.transform.SetParent(null);
+            PlayerDeath();
         }
+    }
+
+    private void PlayerDeath()
+    {
+        playerHealth = 0;
+        gameController.GetComponent<GameManager>().GameOver();
+        Destroy(gameObject.GetComponent<PlayerMovement>());
+        Destroy(gameObject.GetComponent<CharacterController>());
+        renderObject = GetComponent<Renderer>();
+        renderObject.material = deathMat;
+        chickenCamera.transform.SetParent(null);
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Hazard")
         {
-            playerHealth -= 1;
-
+            playerHealth--;
         }
-        if (other.gameObject.tag == "DeathZone")
+        else if (other.gameObject.tag == "TimedMaze")
         {
-            Debug.Log("You are losing HP.");
-            for (int i = playerHealth; i > 0; i++)
-            {
+            StartCoroutine(DelayCoroutine());
+            onObject = true;
+        }
+    }
 
-            }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "TimedMaze")
+        {
+            onObject = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ProgressDoor")
+        {
+            gameController.GetComponent<GameManager>().ProgressLevel();
         }
     }
 
     public int PlayerHealth()
     {
         return playerHealth;
+    }
+
+    public int DeathType()
+    {
+        return deathType;
+    }
+
+    private IEnumerator DelayCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+        if (onObject)
+        {
+            PlayerDeath();
+        }
     }
 }

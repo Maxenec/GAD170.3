@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hazard
   - ChickenCamera
+  - ProgressDoor
+  - TimedMaze
   layers:
   - Default
   - TransparentFX
