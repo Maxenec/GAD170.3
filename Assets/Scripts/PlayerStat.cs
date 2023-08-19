@@ -11,6 +11,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject gameController;
     private int deathType = 0;
     private bool onObject = false;
+    private bool playerAlive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class PlayerStat : MonoBehaviour
         {
             playerHealth = 100;
         }
-        else if (playerHealth < 1)
+        else if (playerHealth < 1 && playerAlive)
         {
             PlayerDeath();
         }
@@ -34,6 +35,7 @@ public class PlayerStat : MonoBehaviour
     private void PlayerDeath()
     {
         playerHealth = 0;
+        playerAlive = false;
         gameController.GetComponent<GameManager>().GameOver();
         Destroy(gameObject.GetComponent<PlayerMovement>());
         Destroy(gameObject.GetComponent<CharacterController>());
@@ -46,12 +48,26 @@ public class PlayerStat : MonoBehaviour
     {
         if (other.gameObject.tag == "Hazard")
         {
-            playerHealth--;
+            if (playerAlive)
+            {
+                playerHealth--;
+            }
+
+        }
+        else if (other.gameObject.tag == "InstantDeath")
+        {
+            if (playerAlive)
+            {
+                PlayerDeath();
+            }
         }
         else if (other.gameObject.tag == "TimedMaze")
         {
-            StartCoroutine(DelayCoroutine());
-            onObject = true;
+            if (playerAlive)
+            {
+                StartCoroutine(DelayCoroutine());
+                onObject = true;
+            }
         }
     }
 

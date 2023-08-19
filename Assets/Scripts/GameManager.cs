@@ -20,17 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (pauseMenu.activeSelf)
-            {
-                pauseMenu.SetActive(false);
-            }
-            else
-            {
-                pauseMenu.SetActive(true);
-            }
-        }
+        PauseMenu();
     }
 
     public void StartGame()
@@ -51,6 +41,13 @@ public class GameManager : MonoBehaviour
     {
         gameOverBox.SetActive(true);
         healthBar.SetActive(false);
+
+        if (pauseMenu.activeSelf && gameOverBox.activeSelf)
+        {
+            pauseMenu.SetActive(false);
+            Debug.Log("Pause Menu cannot be opened.");
+        }
+
     }
 
     public void ProgressLevel()
@@ -65,8 +62,24 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        //Adjusts for both the developer and a normal player.
+        //Adjusts to end the game for both the developer and a normal player.
         Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    public void PauseMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //To make sure pause menu does not overlap with the game over prompt at any time.
+            if (!pauseMenu.activeSelf && !gameOverBox.activeSelf)
+            {
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                pauseMenu.SetActive(false);
+            }
+        }
     }
 }

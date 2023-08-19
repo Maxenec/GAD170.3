@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    //This script is not used as it does not meet the requirement.
     public Transform ground;
     public float speedH = 30.0f;
     public float speedV = 30.0f;
