@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TextDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI myText;
 
-    // Update is called once per frame
-    void Update()
+    //Adds text to UI from another script.
+    public void AddText(string textToAdd)
     {
-        
+        myText.text = textToAdd;
     }
 }
